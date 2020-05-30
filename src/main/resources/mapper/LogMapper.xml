@@ -5,4 +5,8 @@
     <select id="selectById" resultType="com.chen.splittable.model.LogBean">
         SELECT * FROM log
     </select>
+
+    <insert id="insert" parameterType="com.chen.splittable.model.LogBean">
+        INSERT INTO log VALUES (#{id},#{name},#{title} )
+    </insert>
 </mapper>
