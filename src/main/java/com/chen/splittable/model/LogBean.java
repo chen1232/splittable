@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class LogBean {
-    private String id;
+    private int id;
     private String name;
     private String title;
 }

@@ -8,22 +8,24 @@ spring:
         username: root
         password: chen1232
         driver-class-name: com.mysql.cj.jdbc.Driver
-
     sharding:
       binding-tables: log
       tables:
         log:
           actual-data-nodes: master.log_$->{1..2}
-          table-strategy:
+          tableStrategy:
             inline:
-              sharding-column: id
-              algorithm-expression: log_$->{id % 2}
-          key-generator:
-            column: id
-            type: SNOWFLAKE
-            props:
-              worker:
-                id: 123
+              shardingColumn: id
+              algorithmExpression: log_$->{id.longValue() % 3}
+    props:
+      sql:
+        show: true
+#          key-generator:
+#            column: id
+#            type: SNOWFLAKE
+#            props:
+#              worker:
+#                id: 123
 
 
 #              spring.shardingsphere.sharding.tables.t_order.actual-data-nodes=ds.t_order_$->{0..1}
@@ -46,4 +48,12 @@ spring:
 #配置xml映射路径
 mybatis:
   mapper-locations: classpath:mapper/*.xml
+#pagehelper分页插件配置
+pagehelper:
+  helper-dialect: mysql
+
+#打印sql
+logging:
+  level:
+    com.chen.splittable.mapper: debug
 
